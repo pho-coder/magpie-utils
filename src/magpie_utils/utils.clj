@@ -1,4 +1,4 @@
-(ns magpie-utils.utils
+(ns com.jd.bdp.magpie.utils
   (:import [java.io InputStreamReader IOException]
            [org.yaml.snakeyaml Yaml]))
 
