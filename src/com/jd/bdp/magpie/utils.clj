@@ -1,5 +1,8 @@
 (ns com.jd.bdp.magpie.utils
   (:import [java.io InputStreamReader IOException]
+           [java.sql Timestamp]
+           [java.text SimpleDateFormat]
+           
            [org.yaml.snakeyaml Yaml]))
 
 (defn wrap-in-runtime
@@ -26,3 +29,9 @@
                 (throw (IOException. (str "found multiple " filename " !"))))
             parameters (.load yaml (InputStreamReader. (.openStream (first resources))))]
         (apply conj {} parameters)))))
+
+(defn timestamp2datetime
+  ([^Long timestamp-long ^String date-format]
+     (.format (SimpleDateFormat. date-format) (Timestamp. timestamp-long)))
+  ([timestamp-long]
+     (timestamp2datetime timestamp-long "yyyy-MM-dd HH:mm:ss")))
