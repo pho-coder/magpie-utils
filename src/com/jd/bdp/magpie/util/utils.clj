@@ -1,4 +1,4 @@
-(ns com.jd.bdp.magpie.utils
+(ns com.jd.bdp.magpie.util.utils
   (:import [java.io InputStreamReader IOException]
            [java.sql Timestamp]
            [java.text SimpleDateFormat]
