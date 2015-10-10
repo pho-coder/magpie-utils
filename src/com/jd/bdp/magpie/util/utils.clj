@@ -3,6 +3,7 @@
            [java.sql Timestamp]
            [java.text SimpleDateFormat]
            [java.util UUID]
+           [java.lang.management ManagementFactory RuntimeMXBean]
            
            [org.yaml.snakeyaml Yaml]))
 
@@ -48,3 +49,11 @@
 
 (defn uuid []
   (str (UUID/randomUUID)))
+
+(defn get-pid
+  "get process id"
+  []
+  (let [runtime (ManagementFactory/getRuntimeMXBean)
+        ;; format: "pid@hostname"
+        name (.getName ^RuntimeMXBean runtime)]
+    (.substring name 0 (.indexOf name '@'))))
