@@ -1,4 +1,4 @@
-(defproject com.jd.bdp.magpie/magpie-utils "0.1.0.2015092214-SNAPSHOT"
+(defproject com.jd.bdp.magpie/magpie-utils "0.1.1-SNAPSHOT"
   :description "magpie utils"
   :url "https://github.com/pho-coder/magpie-utils"
   :license {:name "Eclipse Public License"

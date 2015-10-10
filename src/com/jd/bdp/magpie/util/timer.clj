@@ -1,5 +1,5 @@
 (ns com.jd.bdp.magpie.util.timer
-  (:require [com.jd.magpie.util.utils :as utils])
+  (:require [com.jd.bdp.magpie.util.utils :as utils])
   (:import [java.util PriorityQueue Comparator])
   (:import [java.util.concurrent Semaphore]))
 
@@ -33,8 +33,7 @@
                                   ;; else poll to see if any new event was scheduled
                                   ;; this is in essence the response time for detecting any new event schedulings when
                                   ;; there are no scheduled events
-                                  (Thread/sleep 1000))
-                                ))
+                                  (Thread/sleep 1000))))
                             (catch Throwable t
                               ;; because the interrupted exception can be wrapped in a runtimeexception
                               (when-not (utils/exception-cause? InterruptedException t)

@@ -2,6 +2,7 @@
   (:import [java.io InputStreamReader IOException]
            [java.sql Timestamp]
            [java.text SimpleDateFormat]
+           [java.util UUID]
            
            [org.yaml.snakeyaml Yaml]))
 
@@ -35,3 +36,15 @@
      (.format (SimpleDateFormat. date-format) (Timestamp. timestamp-long)))
   ([timestamp-long]
      (timestamp2datetime timestamp-long "yyyy-MM-dd HH:mm:ss")))
+
+(defn exception-cause? [klass ^Throwable t]
+  (->> (iterate #(.getCause ^Throwable %) t)
+       (take-while identity)
+       (some (partial instance? klass))
+       boolean))
+
+(defn current-time-millis []
+  (System/currentTimeMillis))
+
+(defn uuid []
+  (str (UUID/randomUUID)))
