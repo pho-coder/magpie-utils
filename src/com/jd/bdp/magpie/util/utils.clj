@@ -57,3 +57,11 @@
         ;; format: "pid@hostname"
         name (.getName ^RuntimeMXBean runtime)]
     (.substring name 0 (.indexOf name '@'))))
+
+(defn string->bytes
+  [^String a-str & {:keys [encode] :or {encode "utf-8"}}]
+  (.getBytes a-str encode))
+
+(defn ^String bytes->string
+  [bytes & {:keys [encode] :or {encode "utf-8"}}]
+  (String. bytes encode))
