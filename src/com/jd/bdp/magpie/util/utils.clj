@@ -56,7 +56,7 @@
   (let [runtime (ManagementFactory/getRuntimeMXBean)
         ;; format: "pid@hostname"
         name (.getName ^RuntimeMXBean runtime)]
-    (.substring name 0 (.indexOf name '@'))))
+    (.substring name 0 (.indexOf name "@"))))
 
 (defn string->bytes
   [^String a-str & {:keys [encode] :or {encode "utf-8"}}]
