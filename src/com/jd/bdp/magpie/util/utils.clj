@@ -5,7 +5,8 @@
            [java.util UUID]
            [java.lang.management ManagementFactory RuntimeMXBean]
            
-           [org.yaml.snakeyaml Yaml]))
+           [org.yaml.snakeyaml Yaml]
+           [org.json JSONObject]))
 
 (defn wrap-in-runtime
   "Wraps an exception in a RuntimeException if needed" 
@@ -65,3 +66,26 @@
 (defn ^String bytes->string
   [bytes & {:keys [encode] :or {encode "utf-8"}}]
   (String. bytes encode))
+
+(defn string->json [^String string]
+  (new JSONObject string))
+
+(defn string->map [^String string]
+  (let [json (string->json string)
+        iterator (.keys json)]
+    (loop [flag (.hasNext iterator)
+           result {}]
+      (if flag
+        (let [k (.next iterator)
+              v (let [v# (.get json k)]
+                  (if (.isNull json k)
+                    nil
+                    v#))]
+          (recur (.hasNext iterator) (conj result {k v})))
+        result))))
+
+(defn bytes->json [bytes]
+  (-> bytes bytes->string string->json))
+
+(defn bytes->map [bytes]
+  (-> bytes bytes->string string->map))
