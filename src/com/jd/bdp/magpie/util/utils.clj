@@ -6,7 +6,7 @@
            [java.lang.management ManagementFactory RuntimeMXBean]
            
            [org.yaml.snakeyaml Yaml]
-           [org.json JSONObject]))
+           [clojure.data.json :as json]))
 
 (defn wrap-in-runtime
   "Wraps an exception in a RuntimeException if needed" 
@@ -67,25 +67,15 @@
   [bytes & {:keys [encode] :or {encode "utf-8"}}]
   (String. bytes encode))
 
-(defn string->json [^String string]
-  (new JSONObject string))
+(defn string->map [^String a-string]
+  (json/read-str a-string))
 
-(defn string->map [^String string]
-  (let [json (string->json string)
-        iterator (.keys json)]
-    (loop [flag (.hasNext iterator)
-           result {}]
-      (if flag
-        (let [k (.next iterator)
-              v (let [v# (.get json k)]
-                  (if (.isNull json k)
-                    nil
-                    v#))]
-          (recur (.hasNext iterator) (conj result {k v})))
-        result))))
-
-(defn bytes->json [bytes]
-  (-> bytes bytes->string string->json))
+(defn map->string
+  [a-map]
+  (json/write-str a-map))
 
 (defn bytes->map [bytes]
   (-> bytes bytes->string string->map))
+
+(defn map->bytes [a-map]
+  (-> a-map map-string string->bytes))
