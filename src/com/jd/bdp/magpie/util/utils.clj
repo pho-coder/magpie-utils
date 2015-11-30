@@ -5,8 +5,8 @@
            [java.util UUID]
            [java.lang.management ManagementFactory RuntimeMXBean]
            
-           [org.yaml.snakeyaml Yaml]
-           [clojure.data.json :as json]))
+           [org.yaml.snakeyaml Yaml])
+  (:require [clojure.data.json :as json]))
 
 (defn wrap-in-runtime
   "Wraps an exception in a RuntimeException if needed" 
@@ -78,4 +78,4 @@
   (-> bytes bytes->string string->map))
 
 (defn map->bytes [a-map]
-  (-> a-map map-string string->bytes))
+  (-> a-map map->string string->bytes))
