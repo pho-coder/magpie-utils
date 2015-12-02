@@ -4,6 +4,7 @@
            [java.text SimpleDateFormat]
            [java.util UUID]
            [java.lang.management ManagementFactory RuntimeMXBean]
+           [java.net InetAddress]
            
            [org.yaml.snakeyaml Yaml])
   (:require [clojure.data.json :as json]))
@@ -79,3 +80,9 @@
 
 (defn map->bytes [a-map]
   (-> a-map map->string string->bytes))
+
+(defn ^String get-ip []
+  (.getHostAddress (InetAddress/getLocalHost)))
+
+(defn ^String get-hostname []
+  (.getHostName (InetAddress/getLocalHost)))
